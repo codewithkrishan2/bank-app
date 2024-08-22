@@ -5,7 +5,7 @@ COPY . .
 RUN mvn clean package
 
 # Stage 2: Create the production image
-FROM openjdk:21-jre-slim
+FROM eclipse-temurin:21-jdk-alpine
 WORKDIR /BANK-APP
 COPY --from=build /BANK-APP/target/*.jar ./bank-app-1.0.jar
 EXPOSE 8080
