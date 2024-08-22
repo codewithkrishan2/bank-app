@@ -16,7 +16,7 @@ This is a Spring Boot-based web application for managing banks, their branches, 
 - **Spring Boot**: Backend framework for building Java-based applications.
 - **Thymeleaf**: Template engine for rendering HTML pages.
 - **Bootstrap**: CSS framework for responsive and mobile-first front-end design.
-- **Java 17**: Programming language used for the application logic.
+- **Java 21**: Programming language used for the application logic.
 - **Maven**: Build automation tool used to manage project dependencies.
 
 ## Setup
