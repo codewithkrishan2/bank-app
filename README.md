@@ -34,7 +34,7 @@ This is a Spring Boot-based web application for managing banks, their branches, 
     ```
 
 3. **Access the Application**:
-    - Web Interface: [http://localhost:8080/bank/**](http://localhost:8080/bank/**)
+    - Web Interface: [http://localhost:8080/bank/list](http://localhost:8080/bank/list)
     - API Endpoints: [http://localhost:8080/api/bank/**](http://localhost:8080/api/bank/**)
 
 ## Project Structure
