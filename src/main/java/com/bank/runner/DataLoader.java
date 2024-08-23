@@ -18,22 +18,18 @@ import com.bank.repo.ServiceRepo;
 @Component
 public class DataLoader implements ApplicationRunner {
 
-	private BankRepo bankRepo;
-	private BranchRepo branchRepo;
-	private ServiceRepo serviceRepo;
-	
-	public DataLoader(BankRepo bankRepo, BranchRepo branchRepo, ServiceRepo serviceRepo) {
-		super();
-		this.bankRepo = bankRepo;
-		this.branchRepo = branchRepo;
-		this.serviceRepo = serviceRepo;
-	}
-	
-	
-	@Override
-	public void run(ApplicationArguments args) throws Exception {
-		// List of Indian Bank Names
-		// List of Indian Bank Names
+	private final BankRepo bankRepo;
+    private final BranchRepo branchRepo;
+    private final ServiceRepo serviceRepo;
+
+    public DataLoader(BankRepo bankRepo, BranchRepo branchRepo, ServiceRepo serviceRepo) {
+        this.bankRepo = bankRepo;
+        this.branchRepo = branchRepo;
+        this.serviceRepo = serviceRepo;
+    }
+
+    @Override
+    public void run(ApplicationArguments args) throws Exception {
         List<String> bankNames = Arrays.asList(
             "State Bank of India", "HDFC Bank", "ICICI Bank", "Axis Bank", "Punjab National Bank"
         );
@@ -43,25 +39,36 @@ public class DataLoader implements ApplicationRunner {
         List<Services> services = new ArrayList<>();
 
         for (String bankName : bankNames) {
-            // Create a Bank
-            Bank bank = new Bank();
-            bank.setName(bankName);
-            bankRepo.save(bank);
+            // Check if the bank already exists
+            Bank bank = bankRepo.findByName(bankName).orElse(null);
+            if (bank == null) {
+                // Create a new Bank if it doesn't exist
+                bank = new Bank();
+                bank.setName(bankName);
+                bankRepo.save(bank);
+            }
             banks.add(bank);
 
             // Create Branches for each Bank
             for (int i = 1; i <= 10; i++) {
-                Branch branch = new Branch();
-                branch.setName(bankName + " Branch " + i);
-                branch.setAddress(i * 100 + " " + bankName + " St, Bangalore");
-                branch.setBank(bank);
-                branches.add(branch);
+                String branchName = bankName + " Branch " + i;
+                // Check if the branch already exists for this bank
+                if (!branchRepo.existsByNameAndBank(branchName, bank)) {
+                    Branch branch = new Branch();
+                    branch.setName(branchName);
+                    branch.setAddress(i * 100 + " " + bankName + " St, Bangalore");
+                    branch.setBank(bank);
+                    branches.add(branch);
+                }
             }
 
-            // Create Services for each Bank with different services
+            // Create Services for each Bank
             List<String> serviceDescriptions = getServiceDescriptionsForBank(bankName);
             for (String description : serviceDescriptions) {
-                services.add(createService(description, bank));
+                // Check if the service already exists for this bank
+                if (!serviceRepo.existsByDescriptionAndBank(description, bank)) {
+                    services.add(createService(description, bank));
+                }
             }
         }
 
@@ -97,6 +104,6 @@ public class DataLoader implements ApplicationRunner {
         service.setDescription(description);
         service.setBank(bank);
         return service;
-	}
+    }
 
 }
