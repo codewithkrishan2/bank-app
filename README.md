@@ -44,7 +44,7 @@ src/
 ├── main/
 │   ├── java/
 │   │   └── com/
-│   │       └── yourpackage/
+│   │       └── bank/
 │   │           ├── controller/
 │   │           │   ├── BankController.java
 │   │           │   ├── BankRestController.java
