@@ -1,8 +1,9 @@
+
 # Stage 1: Build the jar file
-FROM maven:latest AS build
+FROM eclipse-temurin:21-jdk AS build
 WORKDIR /BANK-APP
 COPY . .
-RUN mvn clean package
+RUN ./mvnw clean package
 
 # Stage 2: Create the production image
 FROM eclipse-temurin:21-jdk-alpine
