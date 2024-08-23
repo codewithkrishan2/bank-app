@@ -1,9 +1,8 @@
-
 # Stage 1: Build the jar file
-FROM eclipse-temurin:21-jdk AS build
+FROM maven:latest AS build
 WORKDIR /BANK-APP
 COPY . .
-RUN ./mvnw clean package
+RUN mvn clean package
 
 # Stage 2: Create the production image
 FROM eclipse-temurin:21-jdk-alpine
@@ -11,3 +10,5 @@ WORKDIR /BANK-APP
 COPY --from=build /BANK-APP/target/*.jar ./bank-app-1.0.jar
 EXPOSE 8080
 CMD ["java","-jar","bank-app-1.0.jar"]
+
+
