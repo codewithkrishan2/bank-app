@@ -37,10 +37,9 @@ public class BankRestController {
 		return ResponseEntity.ok(bankService.getAllBanks());
 	}
 
-	@GetMapping("/branches/{bankName}")
+	@GetMapping("/branch/{bankName}")
 	public ResponseEntity<?> getBranches(@PathVariable String bankName) {
 		try {
-			Bank bank = bankService.getBankByName(bankName);
 			List<Branch> branches = branchService.getBranchesByBankName(bankName);
 			return ResponseEntity.ok(branches);
 		} catch (Exception e) {
@@ -51,7 +50,6 @@ public class BankRestController {
 	@GetMapping("/services/{bankName}")
 	public ResponseEntity<List<Services>> getServices(@PathVariable String bankName) {
 		try {
-			Bank bank = bankService.getBankByName(bankName);
 			List<Services> services = servicesOfBankService.getServicesByBankName(bankName);
 			return ResponseEntity.ok(services);
 		} catch (Exception e) {
