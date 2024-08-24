@@ -34,6 +34,8 @@ This is a Spring Boot-based web application for managing banks, their branches, 
     ```
 
 3. **Access the Application**:
+    - Web Interface: [https://bank-app-production-7671.up.railway.app/bank/list](https://bank-app-production-7671.up.railway.app/bank/list)
+    - API Interface: [https://bank-app-production-7671.up.railway.app/api/bank/list](https://bank-app-production-7671.up.railway.app/api/bank/list)
     - Web Interface: [http://localhost:8080/bank/list](http://localhost:8080/bank/list)
     - API Endpoints 1: [http://localhost:8080/api/bank/list](http://localhost:8080/api/bank/list)
     - API Endpoints 2: [http://localhost:8080/api/bank/branch/{bankName}](http://localhost:8080/api/bank/branch/{bankName})
